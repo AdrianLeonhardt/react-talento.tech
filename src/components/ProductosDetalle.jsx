@@ -10,7 +10,9 @@ function ProductosDetalle({ funcionCarrito }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("REACT_APP_API_URL")
+    const url = import.meta.env.VITE_API_URL;
+
+    fetch(url)
       .then((res) => res.json())
       .then((datos) => {
         const productoEncontrado = datos.find((item) => item.id === id);

@@ -3,12 +3,12 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPas
 
 // Configuración de Firebase
 const firebaseConfig = {
-    apiKey: "REACT_APP_FIREBASE_apiKey",
-    authDomain: "REACT_APP_FIREBASE_authDomain",
-    projectId: "REACT_APP_FIREBASE_projectId",
-    storageBucket: "REACT_APP_FIREBASE_storageBucket",
-    messagingSenderId: "REACT_APP_FIREBASE_messagingSenderId",
-    appId: "REACT_APP_FIREBASE_appId"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Inicializar Firebase

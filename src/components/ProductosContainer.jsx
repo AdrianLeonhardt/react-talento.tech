@@ -8,7 +8,8 @@ function ProductosContainer() {
 
   // Cargar productos del mock API
   useEffect(() => {
-    fetch("REACT_APP_API_URL")
+    const url = import.meta.env.VITE_API_URL2;
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setProductosApi(data);
