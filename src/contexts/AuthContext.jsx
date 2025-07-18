@@ -30,10 +30,10 @@
 // // eslint-disable-next-line react-refresh/only-export-components
 // export const useAuthContext = () => useContext(AuthContext);
 
-import { createContext, useState, useContext, useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../auth/firebase'; // Asegúrate de exportar 'auth' desde tu configuración de Firebase
-import PropTypes from 'prop-types';
+import { createContext, useState, useContext, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../auth/firebase";
+import PropTypes from "prop-types";
 
 const AuthContext = createContext();
 
@@ -42,26 +42,18 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-      if (firebaseUser) {
-        setUser(firebaseUser);
-      } else {
-        setUser(null);
-      }
+      setUser(firebaseUser || null);
     });
 
     return () => unsubscribe();
   }, []);
-
-  const login = (firebaseUser) => {
-    setUser(firebaseUser);
-  };
 
   const logout = () => {
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, logout }}>
       {children}
     </AuthContext.Provider>
   );

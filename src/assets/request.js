@@ -1,6 +1,6 @@
-const agregarProducto = async (producto) => {
+export const agregarProducto = async (producto) => {
     try {
-        const respuesta = await fetch("REACT_APP_API_URL", {
+        const respuesta = await fetch(import.meta.env.VITE_API_URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -19,4 +19,20 @@ const agregarProducto = async (producto) => {
         alert("Hubo un problema al agregar el producto.");
     }
 };
-export default agregarProducto;
+
+export const eliminarProducto = async (id) => {
+ const confirmar = window.confirm('¿Estás seguro de eliminar?');
+ if (confirmar) {
+   try {
+     const respuesta = await fetch(`https://mockapi.io/api/v1/productos/${id}`, {
+       method: 'DELETE',
+     });
+     if (!respuesta.ok) throw new Error('Error al eliminar');
+     alert('Producto eliminado correctamente.');
+   } catch (error) {
+     console.error(error.message);
+     alert('Hubo un problema al eliminar el producto.');
+   }
+ }
+};
+

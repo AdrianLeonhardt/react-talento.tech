@@ -1,10 +1,13 @@
 import "../styles/Productos.css";
 import Card from "./Card";
 import { useState, useEffect } from "react";
+import { useProductosContext } from "../contexts/ProductosContext"; // Importamos el contexto de productos
 
 
 function ProductosContainer() {
   const [productosApi, setProductosApi] = useState([]);
+  //const [productosComponente, setProductosComponente] = useState([]);
+  //const [productos, obtenerProductos] = useProductosContext();
 
   // Cargar productos del mock API
   useEffect(() => {
@@ -17,6 +20,11 @@ function ProductosContainer() {
       .catch((error) => {
         console.log(error);
       });
+  //   obtenerProductos().then((data)=> {
+
+  //   }).catch ((error) => {
+  //     console.error("Error al obtener productos:", error);
+  //   });
   }, []);
 
   return (

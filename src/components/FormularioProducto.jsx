@@ -32,7 +32,7 @@ function FormularioProducto({ onAgregar }) {
         }
 
         if (!producto.imagen.trim()) {
-            return( "La URL de la imagen es obligatoria."); 
+            nuevosErrores.imagen = "La URL de la imagen es obligatoria."; 
         }
 
         setErrores(nuevosErrores);
@@ -43,7 +43,7 @@ function FormularioProducto({ onAgregar }) {
         e.preventDefault();
         if (validarFormulario()) {
             onAgregar(producto);
-            setProducto({ name: "", precio: "", description: "" });
+            setProducto({ name: "", precio: "", description: "", imagen: "" });
             setErrores({});
         }
     };
@@ -75,6 +75,9 @@ function FormularioProducto({ onAgregar }) {
                     onChange={handleChange}
                     required
                 />
+                {errores.imagen && (
+                    <p style={{ color: "red" }}>{errores.imagen}</p>
+                )}
             </div>
 
             <div>
