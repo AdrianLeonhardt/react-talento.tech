@@ -1,18 +1,21 @@
-import { StrictMode } from 'react';
+// import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import "bootstrap/dist/css/bootstrap.min.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'; 
 import App from './App.jsx';
 import { AuthProvider } from './contexts/AuthContext.jsx';
 import { ProductosProvider } from './contexts/ProductosContext.jsx';
+import { CarritoProvider } from './contexts/CarritoContext.jsx';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <ProductosProvider>
       <AuthProvider>
-        <App />
+        <CarritoProvider>
+          <App />
+        </CarritoProvider>
       </AuthProvider>
     </ProductosProvider>
-  </StrictMode>
+  // </StrictMode>
 ); 
 

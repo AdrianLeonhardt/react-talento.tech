@@ -4,6 +4,8 @@ import { useAuthContext } from "../contexts/AuthContext";
 import { adminUser } from "../auth/adminConfig";
 import FormularioEdicion from "./FormularioEdicion";
 import { useProductosContext } from "../contexts/ProductosContext";
+import { toast } from "react-toastify";
+
 
 // eslint-disable-next-line react/prop-types
 function ProductosDetalle({ funcionCarrito }) {
@@ -47,12 +49,14 @@ function ProductosDetalle({ funcionCarrito }) {
   }
 
   function handleEliminar() {
-    if (confirm("¿Seguro que quieres eliminar este producto?")) {
-      eliminarProducto(producto.id);
-      alert("Producto eliminado correctamente.");
-      navigate("/productos");
-    }
+  console.log("handleEliminar disparado");
+  if (confirm("¿Seguro que quieres eliminar este producto?")) {
+    eliminarProducto(producto.id);
+    toast.success("✅ Producto eliminado correctamente");
+    navigate("/productos");
   }
+}
+
 
   function sumarCantidad() {
     setCantidad((c) => c + 1);
@@ -81,7 +85,7 @@ function ProductosDetalle({ funcionCarrito }) {
     <div className="container my-5">
       <div className="card mx-auto" style={{ maxWidth: "400px" }}>
         <img
-          src={producto.image || producto.imagen}
+          src={producto.imagen}
           className="card-img-top rounded-circle mx-auto mt-4"
           alt={producto.name}
           style={{ width: "150px", height: "150px", objectFit: "cover" }}
@@ -89,7 +93,7 @@ function ProductosDetalle({ funcionCarrito }) {
         <div className="card-body d-flex flex-column text-center">
           <h5 className="card-title">{producto.name}</h5>
           <p className="card-text">{producto.description}</p>
-          <p className="card-text fw-bold">${producto.price || producto.precio}</p>
+          <p className="card-text fw-bold">${producto.precio}</p>
 
           {!esAdmin && (
             <>

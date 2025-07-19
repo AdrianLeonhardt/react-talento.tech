@@ -1,5 +1,4 @@
 import {BrowserRouter as Router,Routes,Route,Navigate} from "react-router-dom";
-import { useState } from "react";
 import { useAuthContext } from "./contexts/AuthContext"; // Usamos el contexto
 
 import "./styles/Home.css";
@@ -21,41 +20,17 @@ import { adminUser } from "./auth/adminConfig"; // Importamos la configuración 
 import FormularioEdicion from "./components/FormularioEdicion"; // NUEVO
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useCarritoContext } from "./contexts/CarritoContext";
 
 
 function App() {
-  const { user } = useAuthContext(); // Tomamos el usuario logueado del contexto
-
-  const [productosCarrito, setProductosCarrito] = useState([]);
-
-  // Función para agregar productos al carrito
-  function funcionCarrito(producto) {
-    const existe = productosCarrito.find((p) => p.id === producto.id);
-    if (existe) {
-      const carritoActualizado = productosCarrito.map((p) => {
-        if (p.id === producto.id) {
-          return { ...p, cantidad: p.cantidad + producto.cantidad };
-        }
-        return p;
-      });
-      setProductosCarrito(carritoActualizado);
-    } else {
-      setProductosCarrito([...productosCarrito, producto]);
-    }
-  }
-
-  // Función para borrar productos del carrito
-  function borrarProductoCarrito(id) {
-    const nuevoCarrito = productosCarrito.filter((p) => p.id !== id);
-    setProductosCarrito(nuevoCarrito);
-  }
-
-  // Calcular cantidad total
-  const totalCantidad = productosCarrito.reduce(
-    (acum, producto) => acum + producto.cantidad,
-    0
-  );
+  const { user } = useAuthContext();
+  const {
+    productosCarrito,
+    agregarAlCarrito,
+    borrarDelCarrito,
+    totalCantidad,
+  } = useCarritoContext();
 
   return (
     <Router>
@@ -74,7 +49,7 @@ function App() {
               path="/productos/:id"
               element={
                 <ProductoDetalle
-                  funcionCarrito={funcionCarrito}
+                  funcionCarrito={agregarAlCarrito}
                   usuarioLogeado={!!user}
                 />
               }
@@ -87,7 +62,7 @@ function App() {
                 user ? (
                   <Carrito
                     productos={productosCarrito}
-                    funcionBorrar={borrarProductoCarrito}
+                    funcionBorrar={borrarDelCarrito}
                   />
                 ) : (
                   <Navigate to="/login" replace />
