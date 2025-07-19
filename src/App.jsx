@@ -19,6 +19,9 @@ import FormularioProducto from "./components/FormularioProducto"; // Importamos 
 import { agregarProducto } from "./assets/request"
 import { adminUser } from "./auth/adminConfig"; // Importamos la configuración del admin
 import FormularioEdicion from "./components/FormularioEdicion"; // NUEVO
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 function App() {
@@ -134,6 +137,8 @@ function App() {
         </div>
 
         <Footer />
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+
       </div>
     </Router>
   );

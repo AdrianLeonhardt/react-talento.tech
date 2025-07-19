@@ -34,6 +34,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../auth/firebase";
 import PropTypes from "prop-types";
+import { signOut } from "firebase/auth";
 
 const AuthContext = createContext();
 
@@ -49,8 +50,8 @@ export function AuthProvider({ children }) {
   }, []);
 
   const logout = () => {
-    setUser(null);
-  };
+  signOut(auth).then(() => setUser(null));
+};
 
   return (
     <AuthContext.Provider value={{ user, logout }}>
