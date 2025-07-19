@@ -18,6 +18,8 @@ import Login2 from "./components/Login2";
 import FormularioProducto from "./components/FormularioProducto"; // Importamos el formulario de productos
 import { agregarProducto } from "./assets/request"
 import { adminUser } from "./auth/adminConfig"; // Importamos la configuración del admin
+import FormularioEdicion from "./components/FormularioEdicion"; // NUEVO
+
 
 function App() {
   const { user } = useAuthContext(); // Tomamos el usuario logueado del contexto
@@ -117,6 +119,17 @@ function App() {
                 )
               }
             />
+            <Route
+              path="/admin/editar/:id"
+              element={
+                user?.email === adminUser.email ? (
+                  <FormularioEdicion />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+
           </Routes>
         </div>
 

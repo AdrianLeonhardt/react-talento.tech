@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react";
 
+// eslint-disable-next-line react/prop-types
 function FormularioEdicion({ productoSeleccionado, onActualizar }) {
-  const [producto, setProducto] = useState(productoSeleccionado);
+  const [producto, setProducto] = useState(productoSeleccionado || {});
 
   useEffect(() => {
-    setProducto(productoSeleccionado);
+    setProducto(productoSeleccionado || {});
   }, [productoSeleccionado]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProducto({ ...producto, [name]: value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const respuesta = await fetch(
-        `https://mockapi.io/api/v1/productos/${producto.id}`,
+        `${import.meta.env.VITE_API_URL}/${producto.id}`,
         {
           method: "PUT",
           headers: {
@@ -35,6 +37,7 @@ function FormularioEdicion({ productoSeleccionado, onActualizar }) {
       alert("Hubo un problema al actualizar el producto.");
     }
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2>Editar Producto</h2>
@@ -42,8 +45,8 @@ function FormularioEdicion({ productoSeleccionado, onActualizar }) {
         <label>Nombre:</label>
         <input
           type="text"
-          name="nombre"
-          value={producto.nombre || ""}
+          name="name"
+          value={producto.name || ""}
           onChange={handleChange}
           required
         />
@@ -52,8 +55,8 @@ function FormularioEdicion({ productoSeleccionado, onActualizar }) {
         <label>Precio:</label>
         <input
           type="number"
-          name="precio"
-          value={producto.precio || ""}
+          name="price"
+          value={producto.price || ""}
           onChange={handleChange}
           required
           min="0"
@@ -62,8 +65,18 @@ function FormularioEdicion({ productoSeleccionado, onActualizar }) {
       <div>
         <label>Descripción:</label>
         <textarea
-          name="descripcion"
-          value={producto.descripcion || ""}
+          name="description"
+          value={producto.description || ""}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div>
+        <label>Imagen (URL):</label>
+        <input
+          type="text"
+          name="image"
+          value={producto.image || ""}
           onChange={handleChange}
           required
         />
@@ -72,3 +85,6 @@ function FormularioEdicion({ productoSeleccionado, onActualizar }) {
     </form>
   );
 }
+
+export default FormularioEdicion;
+

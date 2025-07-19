@@ -40,62 +40,71 @@ function Nav({ totalCantidad }) {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/home">Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/productos">Productos</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/contacto">Contacto</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/acerca-de">Acerca De</Link>
-            </li>
-            <li className="nav-item position-relative">
-              <Link className="nav-link position-relative" to="/carrito">
-                <i className="bi bi-cart3"></i>
-                {totalCantidad > 0 && (
-                  <span
-                    className="position-absolute top-0.5 start-100 translate-middle badge rounded-pill bg"
-                    style={{ fontSize: "0.55rem" }}
-                  >
-                    {totalCantidad}
-                  </span>
-                )}
-              </Link>
-            </li>
-
-            {/* Mostrar Usuario/Admin solo si no está logueado */}
-            {!estaLogueado && (
+            {esAdmin ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login?role=usuario">Usuario</Link>
+                  <Link className="nav-link" to="/home">Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login?role=admin">Administrador</Link>
+                  <Link className="nav-link" to="/productos">Lista de productos</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/admin/agregarProductos">Agregar producto</Link>
+                </li>
+                <li className="nav-item">
+                  <button className="btn btn-link nav-link" onClick={handleLogout}>
+                    Cerrar sesión
+                  </button>
                 </li>
               </>
-            )}
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/home">Home</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/productos">Productos</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/contacto">Contacto</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/acerca-de">Acerca De</Link>
+                </li>
+                <li className="nav-item position-relative">
+                  <Link className="nav-link position-relative" to="/carrito">
+                    <i className="bi bi-cart3"></i>
+                    {totalCantidad > 0 && (
+                      <span
+                        className="position-absolute top-0.5 start-100 translate-middle badge rounded-pill bg"
+                        style={{ fontSize: "0.55rem" }}
+                      >
+                        {totalCantidad}
+                      </span>
+                    )}
+                  </Link>
+                </li>
 
-            {/* Si está logueado como admin, mostrar Agregar Producto */}
-            {esAdmin && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/admin/agregarProductos">
-                  Agregar Producto
-                </Link>
-              </li>
-            )}
-
-            
-            {estaLogueado && (
-              <li className="nav-item">
-                <button className="btn btn-link nav-link" onClick={handleLogout}>
-                  Cerrar sesión
-                </button>
-              </li>
+                {!estaLogueado ? (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/login?role=usuario">Usuario</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/login?role=admin">Administrador</Link>
+                    </li>
+                  </>
+                ) : (
+                  <li className="nav-item">
+                    <button className="btn btn-link nav-link" onClick={handleLogout}>
+                      Cerrar sesión
+                    </button>
+                  </li>
+                )}
+              </>
             )}
           </ul>
+
         </div>
       </div>
     </nav>
