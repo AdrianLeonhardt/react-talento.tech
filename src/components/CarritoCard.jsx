@@ -14,7 +14,7 @@ function CarritoCard({ producto, guardarProducto }) {
       <img className="carrito-image" src={producto.imagen} alt={producto.name} />
       <h4>Cantidad: <br />{producto.cantidad}</h4>
       <div className="carrito-unitario">
-          <span style={{color:"black"}}>Precio Unitario: <br />{producto.precio} $</span>
+          <span style={{color:"black"}}>Precio Unitario: <br />${producto.precio}</span>
       </div>
       <div className="carrito-sub">
           <span className="p-total-modelo">Precio Total por Modelo:<br />$ {(producto.cantidad * producto.precio).toFixed(2)}</span>

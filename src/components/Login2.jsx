@@ -66,58 +66,106 @@ function Login2() {
 
   if (user) {
     return (
-      <div>
+      <div className="container mt-5 text-center">
         <h2>Bienvenido, {user.email}</h2>
-        <button onClick={handleLogout}>Cerrar Sesión</button>
+        <button
+          onClick={handleLogout}
+          className="btn btn-danger mt-3"
+        >
+          Cerrar Sesión
+        </button>
       </div>
     );
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmitLogin}>
-        <h2>
-          Iniciar sesión como {role === "admin" ? "Administrador" : "Usuario"}
-        </h2>
-        <input
-          type="text"
-          placeholder="Email"
-          value={usuarioLogin}
-          onChange={(e) => setUsuarioLogin(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Contraseña"
-          value={passwordLogin}
-          onChange={(e) => setPasswordLogin(e.target.value)}
-        />
-        <button type="submit">Iniciar sesión</button>
-      </form>
-
-      {role === "usuario" && (
-        <>
-          <form onSubmit={handleSubmitRegister}>
-            <h2>Registrate</h2>
+    <div className="container mt-5 d-flex justify-content-center align-items-center">
+      {/* Card para Login */}
+      <div className="card shadow-lg p-4 rounded" style={{ width: '100%', maxWidth: '400px' }}>
+        <form onSubmit={handleSubmitLogin}>
+          <h2 className="text-center mb-4">
+            Iniciar sesión como {role === "admin" ? "Administrador" : "Usuario"}
+          </h2>
+          <div className="mb-3">
             <input
-              type="text"
+              type="email"
+              className="form-control"
               placeholder="Email"
-              value={usuarioReg}
-              onChange={(e) => setUsuarioReg(e.target.value)}
+              value={usuarioLogin}
+              onChange={(e) => setUsuarioLogin(e.target.value)}
+              required
             />
+          </div>
+          <div className="mb-3">
             <input
               type="password"
+              className="form-control"
               placeholder="Contraseña"
-              value={passwordReg}
-              onChange={(e) => setPasswordReg(e.target.value)}
+              value={passwordLogin}
+              onChange={(e) => setPasswordLogin(e.target.value)}
+              required
             />
-            <button type="submit">Registrarse</button>
-          </form>
+          </div>
+          <button type="submit" className="btn btn-primary w-100 mb-3">
+            Iniciar sesión
+          </button>
+        </form>
 
-          <button onClick={handleLoginGoogle}>Iniciar sesión con Google</button>
-        </>
-      )}
+        {/* Google Login Card */}
+        {role === "usuario" && (
+          <div className="d-flex justify-content-center mb-3">
+            <button
+              onClick={handleLoginGoogle}
+              className="btn btn-light d-flex align-items-center justify-content-center border w-100"
+              style={{ borderRadius: '8px' }}
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/5/51/Google.png"
+                alt="Google Logo"
+                width="20"
+                className="me-2"
+              />
+              <span>Iniciar sesión con Google</span>
+            </button>
+          </div>
+        )}
+
+        {/* Formulario de Registro */}
+        {role === "usuario" && (
+          <>
+            <form onSubmit={handleSubmitRegister} className="mt-4">
+              <h2 className="mb-4 text-center">Registrate</h2>
+              <div className="mb-3">
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="Email"
+                  value={usuarioReg}
+                  onChange={(e) => setUsuarioReg(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Contraseña"
+                  value={passwordReg}
+                  onChange={(e) => setPasswordReg(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn btn-success w-100">
+                Registrarse
+              </button>
+            </form>
+          </>
+        )}
+      </div>
     </div>
   );
 }
 
 export default Login2;
+
+
